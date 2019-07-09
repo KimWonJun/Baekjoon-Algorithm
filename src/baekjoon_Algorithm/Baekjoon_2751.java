@@ -72,58 +72,126 @@ public class Baekjoon_2751 {
 //		scan.close();
 //	}
 	
+//	public static void main(String[] args) {
+//		Scanner scan  = new Scanner(System.in);
+//		int number = scan.nextInt();
+//		int[] heap = new int[number+1];
+//		int z = 0;
+//		while(z < number)
+//			heap[z++] = scan.nextInt();
+//		
+//		// Maximum heap structure
+//		for(int i = 1; i < number; i++)
+//		{
+//			int c = i;
+//			do {
+//				int root = (c - 1) / 2;
+//				if(heap[root] < heap[c]) {
+//					int temp = heap[root];
+//					heap[root] = heap[c];
+//					heap[c]= temp;
+//				}
+//				c = root;
+//			}while(c != 0);
+//		}
+//		
+//		
+//		// Make size down and compose heap
+//		for(int i = number - 1; i >= 0; i--) {
+//			// Send the biggest to the last
+//			int temp = heap[0];
+//			heap[0] = heap[i];
+//			heap[i] = temp;
+//			int root = 0;
+//			int c = 1;
+//			// Part of making heap structure
+//			do {
+//				c = 2 * root + 1;
+//				// Find bigger one between two children
+//				if(c < i-1 && heap[c] < heap[c+1] ) {
+//					c++;
+//				}
+//				// If child is bigger than root
+//				if(c<i && heap[root] < heap[c]) {
+//					int temp2 = heap[root];
+//					heap[root] = heap[c];
+//					heap[c]= temp2;
+//				}
+//				root = c;
+//			}while(c < i);
+//		}
+//		
+//		for(int i = 0; i < number; i++)
+//			System.out.println(heap[i]);
+//		
+//		
+//		scan.close();
+//	}
+	
 	public static void main(String[] args) {
-		Scanner scan  = new Scanner(System.in);
-		int number = scan.nextInt();
-		int[] heap = new int[number+1];
-		int z = 0;
-		while(z < number)
-			heap[z++] = scan.nextInt();
+		Scanner scan = new Scanner(System.in);
 		
-		// Maximum heap structure
-		for(int i = 1; i < number; i++)
+		int count = scan.nextInt();
+		int[] arr = new int[count];
+		int i = 0;
+		while(i < count) {
+			arr[i++] = scan.nextInt();
+		}
+		// 힙 구성
+		for(int j = 1; j < count; j++)
 		{
-			int c = i;
+			int k = j;
 			do {
-				int root = (c - 1) / 2;
-				if(heap[root] < heap[c]) {
-					int temp = heap[root];
-					heap[root] = heap[c];
-					heap[c]= temp;
+				int root = (k-1)/2;
+				if(arr[root] < arr[k]) {
+					int temp = arr[root];
+					arr[root] = arr[k];
+					arr[k] = temp;
 				}
-				c = root;
-			}while(c != 0);
+				k = root;
+			}while(k != 0);
 		}
 		
-		// Make size down and compose heap
-		for(int i = number - 1; i >= 0; i--) {
-			// Send the biggest to the last
-			int temp = heap[0];
-			heap[0] = heap[i];
-			heap[i] = temp;
+		for(int j = count -1; j>= 0; j--)
+		{
+			int temp = arr[0];
+			arr[0] = arr[j];
+			arr[j] = temp;
 			int root = 0;
 			int c = 1;
-			// Part of making heap structure
 			do {
-				c = 2 * root + 1;
-				// Find bigger one between two children
-				if(c < i-1 && heap[c] < heap[c+1] ) {
+				c = 2 * root  + 1;
+				
+				if(c < j - 1 &&  arr[c] < arr[c+1])
 					c++;
-				}
-				// If child is bigger than root
-				if(c<i && heap[root] < heap[c]) {
-					int temp2 = heap[root];
-					heap[root] = heap[c];
-					heap[c]= temp2;
+				if(c < j && arr[root] < arr[c]) {
+					temp = arr[root];
+					arr[root] = arr[c];
+					arr[c] = temp;
 				}
 				root = c;
-			}while(c < i);
+			}while(c < j);
+		
 		}
-		
-		for(int i = 0; i < number; i++)
-			System.out.println(heap[i]);
-		
+			
+		for(int k = 0; k < count; k++)
+			System.out.println(arr[k]);
 		
 		scan.close();
+		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
