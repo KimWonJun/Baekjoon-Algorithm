@@ -53,13 +53,25 @@ public class Baekjoon_11650 {
 			arr[i][1] = Integer.parseInt(input.split(" ")[1]);
 		}
 		
+		// 백준 11650 문제 
+//		Arrays.sort(arr, new Comparator<int[]>() {
+//			@Override
+//			public int compare(int[] o1, int[] o2) {
+//				if(o1[0] == o2[0])
+//					return Integer.compare(o1[1], o2[1]);
+//				else
+//					return Integer.compare(o1[0], o2[0]);
+//			}
+//		});
+		
+		// 백준 11651 문제 
 		Arrays.sort(arr, new Comparator<int[]>() {
 			@Override
 			public int compare(int[] o1, int[] o2) {
-				if(o1[0] == o2[0])
-					return Integer.compare(o1[1], o2[1]);
-				else
+				if(o1[1] == o2[1])
 					return Integer.compare(o1[0], o2[0]);
+				else
+					return Integer.compare(o1[1], o2[1]);
 			}
 		});
 		
