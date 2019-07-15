@@ -22,11 +22,7 @@ public class Baekjoon_2108 {
 		for(int i = 0; i < count; i++)
 		{
 			arr[i] = Integer.parseInt(br.readLine());
-			if(arr[i] < 0) {
-				modeArr[Math.abs(arr[i]) + 4000]  += 1;
-			} else {
-				modeArr[arr[i]] += 1;
-			}
+			
 			sum += arr[i];
 		}
 		
@@ -40,7 +36,7 @@ public class Baekjoon_2108 {
 			avg = sum/count;
 			average = (int) Math.round(avg);
 		} else {
-			avg = Math.abs(sum)/(double)count;
+			avg = Math.abs(sum/(double)arr.length);
 			average = (int) Math.round(avg) * -1;
 		}
 		
@@ -49,24 +45,26 @@ public class Baekjoon_2108 {
 
 		// 최빈값 
 		int mode = 0;
-
-		for(int i = 4000; i < modeArr.length-1; i++) {
-			if(modeArr[i] != 0 && modeArr[i] > mode) {
-				mode = i;
-			} else if(modeArr[i] != 0 && modeArr[i] == mode) {
-				mode = i;
+		int k = 0;
+		int cnt = 0;
+		for(int i = 0; i < count; i++) {
+			modeArr[arr[i] + 4000]++;
+			k = Math.max(k, modeArr[arr[i] + 4000]);
+		}
+		for(int i = 0; i < modeArr.length;i++)
+		{
+			if(modeArr[i] == k) {
+				cnt++;
+				mode = i - 4000;
+			}
+			if(cnt == 2) {
+				mode = i - 4000;
 				break;
 			}
 		}
 		
-		if(mode > 4000)
-		{
-			mode -= 4000;
-			mode *= -1;
-		}
-		
 		// 범위
-		int range = arr[arr.length-1]- arr[0];
+		int range = Math.abs(arr[arr.length-1]- arr[0]);
 		
 		System.out.println("----------------------------------");
 		bw.write(average + "\n" + center + "\n" + mode + "\n" + range);
