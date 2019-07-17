@@ -5,31 +5,10 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.io.IOException;
 
 public class Baekjoon_1431 {
-	
-	int sum(String[] a) {
-		int n = a.length;
-		int sum  = 0;
-		for(int i = 0; i < n; i++)
-		{
-			if(a[i].charAt(i) - '0' <= 9 && a[i].charAt(i) - '0' >= 0) {
-				sum += a[i].charAt(i) - '0';
-			}
-		}
-		return sum;
-	}
-	
-	boolean compare(String a, String b) {
-		if(a.length() < b.length())
-			return a.length() < b.length();
-		else 
-		{
-			int aSum = sum(a);
-		}
-		
-	}
 
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -42,6 +21,41 @@ public class Baekjoon_1431 {
 			arr[i] = br.readLine();
 		}
 		
+//		Arrays.sort(arr, new Comparator<String[]>() {
+//
+//			@Override
+//			public int compare(String[] a, String[] b) {
+//				// TODO Auto-generated method stub
+//				return 0;
+//			}
+//			
+//		});
 	}
-
+	
+	boolean compare(String a, String b)
+	{
+		if(a.length() != b.length())
+		{
+			return a.length() < b.length();
+		} else {
+			int aSum= 0;
+			int bSum = 0;
+			for(int i = 0; i < a.length(); i++)
+			{
+				if(Character.isDigit(a.charAt(i)))
+					aSum += a.charAt(i);
+			}
+			for(int i = 0; i < b.length(); i++)
+			{
+				if(Character.isDigit(b.charAt(i)))
+					bSum += b.charAt(i);
+			}
+			if( aSum != bSum) {
+				return aSum<bSum;
+			} else {
+				return (a.compareTo(b) == 1)? true:false;
+			}
+		}
+		
+	}
 }
