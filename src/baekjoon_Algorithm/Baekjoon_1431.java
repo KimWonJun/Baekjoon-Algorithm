@@ -20,42 +20,61 @@ public class Baekjoon_1431 {
 		{
 			arr[i] = br.readLine();
 		}
-		
-//		Arrays.sort(arr, new Comparator<String[]>() {
-//
-//			@Override
-//			public int compare(String[] a, String[] b) {
-//				// TODO Auto-generated method stub
-//				return 0;
-//			}
-//			
-//		});
+		Baekjoon_1431 sn = new Baekjoon_1431();
+		sn.SerialSorting(arr);
+		for(int i = 0; i < count; i++)
+		{
+			bw.write(arr[i]+"\n");
+		}
+		br.close();
+		bw.close();
 	}
 	
-	boolean compare(String a, String b)
-	{
-		if(a.length() != b.length())
-		{
-			return a.length() < b.length();
-		} else {
-			int aSum= 0;
-			int bSum = 0;
-			for(int i = 0; i < a.length(); i++)
-			{
-				if(Character.isDigit(a.charAt(i)))
-					aSum += a.charAt(i);
-			}
-			for(int i = 0; i < b.length(); i++)
-			{
-				if(Character.isDigit(b.charAt(i)))
-					bSum += b.charAt(i);
-			}
-			if( aSum != bSum) {
-				return aSum<bSum;
-			} else {
-				return (a.compareTo(b) == 1)? true:false;
-			}
-		}
+	public String[] SerialSorting(String[] serial_num){
+		String temp;
 		
+		for(int i = 0; i < serial_num.length -1; i++)
+		{
+			int sorting_index = i;
+			
+			for(int k = i+1; k < serial_num.length; k++)
+			{
+				int count_right = 0;
+				int count_left = 0;
+				if(serial_num[k].length() == serial_num[sorting_index].length()) {
+					for(int j = 0; j < serial_num[k].length();j++) {
+						if(Character.isDigit(serial_num[k].charAt(j))) {
+							count_right += serial_num[k].charAt(j) - '0';
+						}
+					}
+					for(int j = 0; j < serial_num[sorting_index].length(); j++) {
+						if(Character.isDigit(serial_num[sorting_index].charAt(j))) {
+							count_left += serial_num[sorting_index].charAt(j) - '0';
+						}
+					}
+					if(count_right == count_left) {
+						for(int j = 0; j < serial_num[sorting_index].length();j++) {
+							if(serial_num[k].charAt(j) != serial_num[sorting_index].charAt(j)) {
+								if(serial_num[sorting_index].charAt(j)>serial_num[k].charAt(j)) {
+									sorting_index = k;
+									break;
+								}
+								break;
+							}
+						}
+		
+					} else if(count_right < count_left) {
+						sorting_index=k;
+					}
+				}else if(serial_num[k].length() < serial_num[sorting_index].length()) {
+					sorting_index = k;
+				}
+			}
+			
+			temp = serial_num[i];
+			serial_num[i]  = serial_num[sorting_index];
+			serial_num[sorting_index] = temp;
+		}
+		return serial_num;
 	}
 }
